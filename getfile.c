@@ -19,7 +19,7 @@ int get_file(char *str)
 		fprintf(stderr, "Error: Can't open file %s\n", str);
 		exit(EXIT_FAILURE);
 	}
-	line_size = get_line(&line_buf, &line_buf_size, fp);
+	line_size = get_file(&line_buf, &line_buf_size, fp);
 	for (i = 0; i < 10024; i++)
 		buff[i] = 0;
 	while (line_size >= 0)
@@ -34,7 +34,7 @@ int get_file(char *str)
 		}
 		if (line_buf[i] == '#')
 		{
-			line_size = get_line(&line_buf, &line_buf_size, fp);
+			line_size = get_file(&line_buf, &line_buf_size, fp);
 			line_counter++;
 			continue;
 		}
@@ -44,7 +44,7 @@ int get_file(char *str)
 			clean_string(b, line_buf);
 			create_instruction(&list_opcode, b, line_counter, fp);
 		}
-		line_size = get_line(&line_buf, &line_buf_size, fp);
+		line_size = get_file(&line_buf, &line_buf_size, fp);
 	}
 	free(line_buf), line_buf = NULL, fclose(fp);
 	return (line_counter);
